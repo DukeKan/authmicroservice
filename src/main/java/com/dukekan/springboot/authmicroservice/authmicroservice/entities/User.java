@@ -3,7 +3,7 @@ package com.dukekan.springboot.authmicroservice.authmicroservice.entities;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "users")
 public class User {
 
     @Id
