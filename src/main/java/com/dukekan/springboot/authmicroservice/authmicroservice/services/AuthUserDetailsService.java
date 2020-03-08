@@ -28,17 +28,15 @@ public class AuthUserDetailsService  implements UserDetailsService {
     public void createTestUsers() {
         PasswordEncoder passEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
-        logger.warn("Creating test user");
-        User user = new User();
-        user.setUsername("test");
-        user.setPassword(passEncoder.encode("test"));
-        userRepository.save(user);
-        logger.warn("Test user is created");
-    }
-
-    @PreDestroy
-    public void removeTestUsers() {
-        userRepository.deleteAll();
+        UserDetails testUser = loadUserByUsername("test");
+        if (testUser == null) {
+            logger.warn("Creating test user");
+            User user = new User();
+            user.setUsername("test");
+            user.setPassword(passEncoder.encode("test"));
+            userRepository.save(user);
+            logger.warn("Test user is created");
+        }
     }
 
     @Override
