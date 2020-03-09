@@ -14,9 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
-@Service
+@Service(value = "CustomAuthUserDetailsService")
 public class AuthUserDetailsService  implements UserDetailsService {
 
     private Logger logger = LoggerFactory.getLogger(AuthUserDetailsService.class);
