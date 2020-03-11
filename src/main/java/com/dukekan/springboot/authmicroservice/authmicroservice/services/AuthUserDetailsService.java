@@ -27,7 +27,7 @@ public class AuthUserDetailsService  implements UserDetailsService {
     public void createTestUsers() {
         PasswordEncoder passEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
-        UserDetails testUser = loadUserByUsername("test");
+        User testUser = userRepository.findByUsername("test");
         if (testUser == null) {
             logger.warn("Creating test user");
             User user = new User();
