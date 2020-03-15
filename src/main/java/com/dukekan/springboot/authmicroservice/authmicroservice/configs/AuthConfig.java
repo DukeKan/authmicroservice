@@ -16,4 +16,19 @@ public class AuthConfig {
         return environment.getProperty("redirect.fromServiceQueryParam");
     }
 
+    public String getJwtSecret() {
+        return environment.getProperty("jwt.secret");
+    }
+
+    public String getJwtIssuer() {
+        return environment.getProperty("jwt.issuer");
+    }
+
+    public String getJwtUserIdClaim() {
+        return environment.getProperty("jwt.userIdClaim");
+    }
+
+    public String getJwtCookieName() {
+        return environment.getProperty("jwt.cookieName");
+    }
 }

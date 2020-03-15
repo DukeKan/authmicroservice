@@ -16,8 +16,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -34,6 +33,11 @@ public class LoginPageTest {
     @BeforeEach
     public void setUp() {
         when(authConfig.getAuthRedirect()).thenReturn("redirect");
+        when(authConfig.getJwtCookieName()).thenReturn("jwt");
+        when(authConfig.getJwtSecret()).thenReturn("someRandom");
+        when(authConfig.getJwtIssuer()).thenReturn("noMatter");
+        when(authConfig.getJwtUserIdClaim()).thenReturn("doesntChecked");
+
         MockHelpers.mockTestUserCredentials(authUserDetailsService);
     }
 
@@ -55,7 +59,8 @@ public class LoginPageTest {
                 .login();
 
         // asset
-        loginAction.andExpect(status().is2xxSuccessful());
+        loginAction.andExpect(status().is2xxSuccessful())
+            .andExpect(cookie().exists(authConfig.getJwtCookieName()));
     }
 
     @Test
@@ -70,7 +75,8 @@ public class LoginPageTest {
         // asset
         loginAction.andExpect(status()
                 .is3xxRedirection())
-                .andExpect(redirectedUrl(("https://google.com")));
+                .andExpect(redirectedUrl(("https://google.com")))
+                .andExpect(cookie().exists(authConfig.getJwtCookieName()));
     }
 
     @Test
@@ -83,6 +89,7 @@ public class LoginPageTest {
 
         // asset
         loginAction.andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/login?error"));
+                .andExpect(redirectedUrl("/login?error"))
+                .andExpect(cookie().doesNotExist(authConfig.getJwtCookieName()));
     }
 }
