@@ -65,7 +65,7 @@ public class AuthFilter {
     private void addJwtCookie(HttpServletResponse resp, String token) {
         Cookie cookie = new Cookie(authConfig.getJwtCookieName(), token);
         cookie.setPath("/");
-        cookie.setMaxAge(60);
+        cookie.setMaxAge(authConfig.getJwtCookieMaxAgeInSeconds());
         resp.addCookie(cookie);
     }
 }
