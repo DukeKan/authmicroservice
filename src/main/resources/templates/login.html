@@ -70,6 +70,10 @@
         width: 100%;
       }
     }
+
+    .description {
+        text-size: 30px;
+    }
 </style>
 <head>
     <title>Authentication provider</title>
@@ -77,14 +81,14 @@
 <body>
 
     <div class="page">
-        <div th:if="${param.error}" style="color:red;">
+        <div th:if="${param.error}" style="color:red;" class="description">
             Invalid username or password.
         </div>
-        <div th:if="${param.logout}">
+        <div th:if="${param.logout}" class="description">
             You have been logged out.
         </div>
-        <div th:if="${param.redirect}">
-            You will be redirected back after successful login.
+        <div th:if="${param.redirect}" class="description">
+            You will be redirected to  <div th:text="${param.redirect}" style="font-weight: bold;"></div> after successful login.
         </div>
 
         <div class="container">
