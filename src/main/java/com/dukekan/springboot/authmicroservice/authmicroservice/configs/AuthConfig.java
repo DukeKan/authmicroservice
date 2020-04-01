@@ -36,4 +36,8 @@ public class AuthConfig {
         String seconds = environment.getProperty("jwt.maxJwtCookieAgeInSeconds");
         return seconds != null ? Integer.parseInt(seconds) : -1;
     }
+
+    public String getJwtCookieDomain() {
+        return environment.getProperty("jwt.cookieDomain");
+    }
 }

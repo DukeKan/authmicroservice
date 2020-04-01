@@ -37,6 +37,7 @@ public class LoginPageTest {
         when(authConfig.getJwtSecret()).thenReturn("someRandom");
         when(authConfig.getJwtIssuer()).thenReturn("noMatter");
         when(authConfig.getJwtUserIdClaim()).thenReturn("doesntChecked");
+        when(authConfig.getJwtCookieDomain()).thenReturn("localhost");    
 
         MockHelpers.mockTestUserCredentials(authUserDetailsService);
     }
