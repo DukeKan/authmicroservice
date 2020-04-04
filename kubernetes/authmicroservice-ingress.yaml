@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: authmicroservice-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+  - host: notes.site
+    http:
+      paths:
+      - path: /login
+        backend:
+          serviceName: authmicroservice
+          servicePort: 8080

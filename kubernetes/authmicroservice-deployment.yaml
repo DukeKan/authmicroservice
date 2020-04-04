@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: authmicroservice
+  name: authmicroservice
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: authmicroservice
+  template:
+    metadata:
+      labels:
+        app: authmicroservice
+    spec:
+      containers:
+        - name: authmicroservice
+          image: docker.pkg.github.com/dukekan/authmicroservice/authmicroservice:1.2
+          ports:
+            - containerPort: 8080
+          env:
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: authmicroservice-config
+                key: db_host
+          - name: DB_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: authmicroservice-config
+                key: db_port
+          # TODO use secrets
+          - name: DB_USER
+            valueFrom:
+              configMapKeyRef:
+                name: authmicroservice-config
+                key: db_user
+          - name: DB_PASS
+            valueFrom:
+              configMapKeyRef:
+                name: authmicroservice-config
+                key: db_pass                  
+      imagePullSecrets:
+        - name: authmicroservice-secret # used to pull images from github

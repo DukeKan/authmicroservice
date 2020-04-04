@@ -20,7 +20,8 @@ There are several ways to run a Spring Boot application on your local machine. O
 - Import the project as Gradle project
 - Open terminal and run ```gradle wrapper``` to initialize Gradle wrapper
 - Create `authmicroservice` database with the help of any PostgreSQL client app
-- Run ```gradlew bootRun``` in order to start application
+- install Git Bash (for Windows)
+- Run ```./start.sh``` in order to start application
 - Go to the http://localhost:8080/login page
 
 ### Security
